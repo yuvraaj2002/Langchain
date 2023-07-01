@@ -2,11 +2,15 @@ import os
 import requests
 
 
-def scrape_linkedin_profile():
+def scrape_linkedin_profile(url: str) -> str:
     """
     Scrape information from the linkedin prfile
     Manually scrape the information from linkedin profile
     """
+
+    """    api_endpoint = "https://nubela.co/proxycurl/api/v2/linkedin"
+    header_dict = {"Authorization": f'Bearer {os.environ.get("PROXYCURL_API_KEY")}'}
+    response = requests.get(api_endpoint, params={"url": url}, headers=header_dict) """
 
     # Let's extract the data from the provided URL
     response = requests.get(
@@ -27,5 +31,5 @@ def scrape_linkedin_profile():
     return raw_data
 
 
-if __name__ == "__main__":
-    print(scrape_linkedin_profile())
+# if __name__ == "__main__":
+#     print(scrape_linkedin_profile())
