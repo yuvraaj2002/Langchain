@@ -1,6 +1,8 @@
 from langchain import PromptTemplate
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
+from Tools.Scrape_linkedin import scrape_linkedin_data_profile
+from Agent.Find_Profile_URL import find_url_agent
 
 if __name__ == "__main__":
     print("Starting")
@@ -20,4 +22,15 @@ if __name__ == "__main__":
 
     # Let's chain together everything using LLM Chain
     chain = LLMChain(llm=model, prompt=prompt_template)
-    print(chain.run(input="Hari Singh Nalwa"))
+
+    linkedin_profile_url = find_url_agent(name="Harrison Chase")
+    """
+        From find_url_agent will give us ->  The LinkedIn profile URL for 
+        Harrison Chase is https://www.linkedin.com/in/harrison-chase-961287118, so we need to extract the URL
+    """
+    start_index_of_URL = linkedin_profile_url.find("https://www.linkedin.com/in/")
+    linkedin_profile_url = linkedin_profile_url[start_index_of_URL:]
+
+    # Now we will pass linkedin_profile_url as an arugment to extract all the data from the profile
+    person_linkedin_data = scrape_linkedin_data_profile(url=linkedin_profile_url)
+    # print(person_linkedin_data)
